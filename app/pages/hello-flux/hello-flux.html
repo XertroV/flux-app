@@ -1,0 +1,17 @@
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Flux - Welcome</ion-title>
+</ion-navbar>
+
+<ion-content padding class="hello-flux">
+  <h3 class="">Welcome to the Flux app!</h3>
+  <p>
+    Number of members {{info.n_members}}
+  </p>
+  <p>
+    <button block (click)="beginSignup()">Sign Up (it's Free!)</button>
+    <button block (click)="beginLogin()">Login</button>
+  </p>
+</ion-content>
