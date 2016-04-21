@@ -5,10 +5,12 @@ import {HelloFluxPage} from './pages/hello-flux/hello-flux';
 import {LoginPage} from './pages/login/login';
 import {StatsPage} from './pages/stats/stats';
 import {MemberDetailsPage} from './pages/member-details/member-details';
+import {dataService} from './services/dataService';
 
 @App({
   templateUrl: 'build/app.html',
-  config: {} // http://ionicframework.com/docs/v2/api/config/Config/
+  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
+  providers: [dataService]
 })
 class MyApp {
   static get parameters() {
