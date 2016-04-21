@@ -1,4 +1,5 @@
 import {Page, NavController} from 'ionic-angular';
+import {DatePicker} from 'ionic-native';
 
 /*
   Generated class for the MemberDetailsPage page.
@@ -16,5 +17,34 @@ export class MemberDetailsPage {
 
   constructor(nav) {
     this.nav = nav;
+    this.fname = '';
+    this.mname = '';
+    this.sname = '';
+    this.onRoll = '';
+    this.email = '';
+    this.country = '';
+    this.postcode = '';
+    this.suburb = '';
+    this.street = '';
+    this.note = '';
+    this.dob = '';
   }
+
+  selectDate(){
+    DatePicker.show({
+      date: new Date(),
+      mode: 'date'
+    }).then(
+      date => this.dob = date.toString(),
+      err => console.log("Error occurred while getting date:", err)
+    );
+  }
+
+  onSubmit(){
+    //do stuff
+    //validate data
+    //submit to flux api
+  }
+
+
 }
