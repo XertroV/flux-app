@@ -36,6 +36,20 @@ export class dataService {
 		return promise;
 	}
 
+
+	//takes user object, returns promise
+	registerUser(user){
+		var api = 'api/v0/register/all_at_once';
+		var url = this.endpoint + api;
+		var promise = new Promise((resolve, reject) => {
+			this.http.post(url, JSON.stringify(user), {headers: this.header})
+				.map(response => response.json())
+				.subscribe(response => resolve(response),
+							err => reject(err));
+		});
+		return promise;
+	}
+
 	getUser(secret){
 		var api = 'api/v0/user_details';
 		var url = this.endpoint + api;
