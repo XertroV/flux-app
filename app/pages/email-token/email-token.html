@@ -17,7 +17,7 @@
     </p>
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input type='email' [(ngModel)] = "email"></ion-input>
+      <ion-input type='email' [(ngModel)]="email"></ion-input>
     </ion-item>
 
     <button block (click)='onSendEmail()'>Send Email</button>
@@ -26,7 +26,7 @@
       Paste your token below and hit 'log in':
     </p>
     <ion-item>
-      <ion-input type='text' placeholder='Paste Token Here' [(ngModel)] = "token"></ion-input>
+      <ion-input type='text' placeholder='Paste Token Here' [(ngModel)]="token"></ion-input>
     </ion-item>
     <button block (click)='onLogin()'>Log In</button>
 </ion-content>

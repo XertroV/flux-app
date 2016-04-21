@@ -26,7 +26,7 @@ export class EmailTokenPage {
     //this.ds.getUser returns a promise
     this.ds.getUser(this.token)
         .then((res) => console.log(res))
-        .catch((error) => console.log(error))
+        .catch((error) => console.log(error));
 
   }
 

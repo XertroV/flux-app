@@ -5,13 +5,13 @@ var PouchDB = require('pouchdb');
 
 @Injectable()
 export class dataService {
-	
+
     static get parameters() {
    		return [[Http]];
   	}
 
-  	constructor(Http){
-		this.http = Http;
+  	constructor(http){
+		this.http = http;
 		this.endpoint = 'http://flux-api-dev.herokuapp.com/';
 		this.header = new Headers();
 		this.header.append('Content-Type', 'application/json');
@@ -48,4 +48,7 @@ export class dataService {
 		return promise;
 	}
 
+	saveUser(){
+		// create function, do nothing atm
+	}
 }
