@@ -24,6 +24,7 @@ export class MemberDetailsPage {
     if(localStorage.secret != undefined){
       this.ds.getUser(localStorage.secret)
         .then((res) =>{
+          this.user = res;
           this.address = res.address;
           this.contact_number = res.contact_number;
           this.dob = res.dob;
