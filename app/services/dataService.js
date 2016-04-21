@@ -12,7 +12,7 @@ export class dataService {
 
   	constructor(Http){
 		this.http = Http;
-		this.endpoint = 'https://api.voteflux.org/';//'http://flux-api-dev.herokuapp.com/';
+		this.endpoint = 'http://flux-api-dev.herokuapp.com/';
 		this.header = new Headers();
 		this.header.append('Content-Type', 'application/json');
 		//this.header.append('Access-Control-Allow-Origin', '*');
@@ -27,19 +27,25 @@ export class dataService {
 		headers.append('Content-Type', 'application/json');
 		data['email'] = email;
 		data['fname'] = name;
-		return this.http.post(url, JSON.stringify(data), { headers: headers })
+		var promise = new Promise((resolve, reject) => {
+			this.http.post(url, JSON.stringify(data), { headers: headers })
 				.map(response => response.json())
-				.subscribe(response => console.log('response', response),
-							err => console.log('error', err));
+				.subscribe(response => resolve(response),
+                        		err => reject(err));
+		});
+		return promise;
 	}
 
 	getUser(secret){
 		var api = 'api/v0/user_details';
 		var url = this.endpoint + api;
-		return this.http.post(url, JSON.stringify({'s': secret}), { headers: this.header })
+		var promise = new Promise((resolve, reject) => {
+			this.http.post(url, JSON.stringify({'s': secret}), { headers: this.header })
 				.map(response => response.json())
-				.subscribe(response => console.log('response', response),
-							err => console.log('error', err));
+				.subscribe(response => resolve(response),
+                        		err => reject(err));
+		});
+		return promise;
 	}
 
 }

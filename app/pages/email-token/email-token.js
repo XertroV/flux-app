@@ -20,11 +20,19 @@ export class EmailTokenPage {
     this.ds = ds;
     this.token = '';
     this.email = '';
+    this.user;
   }
 
   onLogin(){
-    var user = this.ds.getUser(this.token);
-    console.log('user', user);
+    //this.ds.getUser returns a promise
+    this.ds.getUser(this.token)
+        .then((res) => console.log(res))
+        .catch((error) => console.log(error))
+
+  }
+
+  saveUser(){
+    this.ds.saveUser()
   }
 
   onSendEmail(){
