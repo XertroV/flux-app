@@ -19,7 +19,6 @@ export class HelloFluxPage {
   constructor(http, nav) {
     this.http = http;
     this.nav = nav;
-    this.nav.push(LoginPage);
   }
 
   beginSignup(){

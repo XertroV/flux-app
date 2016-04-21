@@ -22,7 +22,6 @@ export class LoginPage {
     this.nav = nav;
     this.platform = platform;
     
-    this.emailCode();
   }
 
   emailCode() {
@@ -47,5 +46,5 @@ export class LoginPage {
       });
   }
 
-  
+
 }
