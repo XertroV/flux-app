@@ -4,21 +4,24 @@ import 'rxjs/add/operator/map';
 import { Page, Loading, NavController } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
-import { SignupPage } from '../signup/signup'
+import { SignupPage } from '../signup/signup';
 
-console.log('loaded flux hello js');
+import { Util } from '../../aux';
+
 
 @Page({
   templateUrl: 'build/pages/hello-flux/hello-flux.html'
 })
 export class HelloFluxPage {
   static get parameters(){
-    return [[Http], [NavController]];
+    return [[Http], [NavController], [Util]];
   }
 
-  constructor(http, nav) {
+  constructor(http, nav, util) {
     this.http = http;
     this.nav = nav;
+    this.util = util;
+    console.log('test');
   }
 
   beginSignup(){
@@ -27,6 +30,7 @@ export class HelloFluxPage {
   }
 
   beginLogin(){
+    console.log(this.util.api('test'));
     console.log("beginLogin()");
     this.nav.push(LoginPage);
     console.log("pushedLoginPage");

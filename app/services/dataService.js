@@ -1,27 +1,28 @@
 import {Injectable} from 'angular2/core';
 import {Http, Headers} from 'angular2/http';
+import {Util} from '../aux';
 
 var PouchDB = require('pouchdb');
 
 @Injectable()
 export class dataService {
 
-    static get parameters() {
-   		return [[Http]];
-  	}
+  static get parameters() {
+ 		return [[Http], [Util]];
+	}
 
-  	constructor(http){
+	constructor(http, util){
 		this.http = http;
 		this.endpoint = 'http://flux-api-dev.herokuapp.com/';
 		this.header = new Headers();
 		this.header.append('Content-Type', 'application/json');
 		//this.header.append('Access-Control-Allow-Origin', '*');
 		//this.header.append('Access-Control-Allow-Methods', 'POST');
+		this.util = util;
 	}
 
 	registerEmail(email, name){
-		var api = 'api/v0/register/initial_email';
-		var url = this.endpoint + api;
+		var url = this.util.api('api/v0/register/initial_email');
 		var data = {};
 		var headers = new Headers();
 		headers.append('Content-Type', 'application/json');
@@ -39,8 +40,7 @@ export class dataService {
 
 	//takes user object, returns promise
 	registerUser(user){
-		var api = 'api/v0/register/all_at_once';
-		var url = this.endpoint + api;
+		var url = this.util.api('api/v0/register/all_at_once');
 		var promise = new Promise((resolve, reject) => {
 			this.http.post(url, JSON.stringify(user), {headers: this.header})
 				.map(response => response.json())
@@ -51,8 +51,8 @@ export class dataService {
 	}
 
 	getUser(secret){
-		var api = 'api/v0/user_details';
-		var url = this.endpoint + api;
+		console.log("getUser with secret " + secret);
+		var url = this.util.api('api/v0/user_details');
 		var promise = new Promise((resolve, reject) => {
 			this.http.post(url, JSON.stringify({'s': secret}), { headers: this.header })
 				.map(response => response.json())

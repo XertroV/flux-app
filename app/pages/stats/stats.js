@@ -2,6 +2,8 @@ import {Page, NavController, Loading} from 'ionic-angular';
 import { Http } from 'angular2/http';
 import 'rxjs/add/operator/map';
 
+import {util} from '../../aux/util';
+
 /*
   Generated class for the StatsPage page.
 
@@ -39,7 +41,7 @@ export class StatsPage {
 
   loadInfo(){
     this.setLoading();
-    this.http.get('https://api.voteflux.org/getinfo')
+    this.http.get(util.api('getinfo'))
       .map(res => res.json())
       .subscribe(data => {
         this.info = data;
