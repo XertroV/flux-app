@@ -3,8 +3,8 @@ import {App, IonicApp, Platform, MenuController} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HelloFluxPage} from './pages/hello-flux/hello-flux';
 import {LoginPage} from './pages/login/login';
-
-
+import {StatsPage} from './pages/stats/stats';
+import {MemberDetailsPage} from './pages/member-details/member-details';
 
 @App({
   templateUrl: 'build/app.html',
@@ -26,6 +26,8 @@ class MyApp {
     this.pages = [
       { title: 'Hello Flux', component: HelloFluxPage },
       { title: 'Login', component: LoginPage },
+      { title: 'My Membership Deets', component: MemberDetailsPage },
+      { title: 'Flux Stats', component: StatsPage },
     ];
 
     // make HelloIonicPage the root (or first) page
