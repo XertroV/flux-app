@@ -2,6 +2,8 @@ import {Page, NavController, Alert, Platform} from 'ionic-angular';
 
 import { EmailTokenPage } from '../email-token/email-token';
 
+import {BarcodeScanner} from 'ionic-native';
+
 /*
   Generated class for the LoginPage page.
 
@@ -28,21 +30,22 @@ export class LoginPage {
   }
 
   scan() {
-    console.log(this);
-    if(cordova){
-      cordova.plugins.barcodeScanner.scan((result) => {
-        this.nav.present(Alert.create({
+    BarcodeScanner.scan().then((result) => {
+       // Success! Barcode data is here
+       this.nav.present(Alert.create({
           title: "Scan Results",
           subTitle: result.text,
           buttons: ["Close"]
         }));
       }, (error) => {
+          // An error occurred
         this.nav.present(Alert.create({
           title: "Attention!",
           subTitle: error,
           buttons: ["Close"]
         }));
       });
-    }
   }
+
+  
 }
