@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { Page, Loading, NavController } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
+import { SignupPage } from '../signup/signup'
 
 console.log('loaded flux hello js');
 
@@ -48,6 +49,7 @@ export class HelloFluxPage {
 
   beginSignup(){
     console.log("beginSignup()");
+    this.nav.push(SignupPage);
   }
 
   beginLogin(){
