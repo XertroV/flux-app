@@ -21,20 +21,6 @@ export class MemberDetailsPage {
     this.nav = nav;
     this.ds = ds;
 
-    this.address = '';
-    this.contact_number = '';
-    this.dob = '';
-    this.dobDay = '';
-    this.dobMonth = '';
-    this.dobYear = '';
-    this.email = '';
-    this.name = '';
-    this.onAECRoll = '';
-    this.member_comment = '';
-    this.referred_by = '';
-  }
-
-  onPageLoaded() {
     if(localStorage.secret != undefined){
       this.ds.getUser(localStorage.secret)
         .then((res) =>{
@@ -50,6 +36,18 @@ export class MemberDetailsPage {
           this.member_comment = res.member_comment;
           this.referred_by = res.referred_by;
         });
+    } else {
+      this.address = '';
+      this.contact_number = '';
+      this.dob = '';
+      this.dobDay = '';
+      this.dobMonth = '';
+      this.dobYear = '';
+      this.email = '';
+      this.name = '';
+      this.onAECRoll = '';
+      this.member_comment = '';
+      this.referred_by = '';
     }
   }
 
