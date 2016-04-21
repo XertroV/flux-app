@@ -20,7 +20,6 @@ export class EmailTokenPage {
     this.ds = ds;
     this.token = '';
     this.email = '';
-    this.user;
   }
 
   onLogin(){
