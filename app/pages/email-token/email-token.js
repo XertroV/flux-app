@@ -1,6 +1,8 @@
 import {Page, NavController} from 'ionic-angular';
 import {dataService} from '../../services/dataService';
 
+import {MemberDetailsPage} from '../member-details/member-details';
+
 /*
   Generated class for the EmailTokenPage page.
 
@@ -25,9 +27,12 @@ export class EmailTokenPage {
   onLogin(){
     //this.ds.getUser returns a promise
     this.ds.getUser(this.token)
-        .then((res) => console.log(res))
+        .then((res) => {
+          console.log('res', res);
+          localStorage.secret = res.s;
+          this.nav.push(MemberDetailsPage);
+        })
         .catch((error) => console.log(error));
-
   }
 
   saveUser(){
