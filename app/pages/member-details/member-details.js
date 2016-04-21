@@ -46,5 +46,10 @@ export class MemberDetailsPage {
     //submit to flux api
   }
 
+  onRevoke(){
+    //give warning confirmation dialog
+    //do revocation
+  }
+
 
 }
