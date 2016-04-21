@@ -17,16 +17,16 @@
     </p>
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input type='email'></ion-input>
+      <ion-input type='email' [(ngModel)] = "email"></ion-input>
     </ion-item>
 
-    <button block>Send Email</button>
+    <button block (click)='onSendEmail()'>Send Email</button>
     <hr>
     <p>
       Paste your token below and hit 'log in':
     </p>
     <ion-item>
-      <ion-input type='text' placeholder='Paste Token Here'></ion-input>
+      <ion-input type='text' placeholder='Paste Token Here' [(ngModel)] = "token"></ion-input>
     </ion-item>
-    <button block>Log In</button>
+    <button block (click)='onLogin()'>Log In</button>
 </ion-content>

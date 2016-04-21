@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/http';
+import {Http, Headers} from 'angular2/http';
 
 var PouchDB = require('pouchdb');
 
@@ -12,20 +12,34 @@ export class dataService {
 
   	constructor(Http){
 		this.http = Http;
-		this.endpoint = 'http://flux-api-dev.herokuapp.com/';
+		this.endpoint = 'https://api.voteflux.org/';//'http://flux-api-dev.herokuapp.com/';
+		this.header = new Headers();
+		this.header.append('Content-Type', 'application/json');
+		//this.header.append('Access-Control-Allow-Origin', '*');
+		//this.header.append('Access-Control-Allow-Methods', 'POST');
 	}
 
 	registerEmail(email, name){
 		var api = 'api/v0/register/initial_email';
 		var url = this.endpoint + api;
 		var data = {};
-		data.email = email;
-		data.fname = name;
-		console.log('data', JSON.stringify(data));
-		return this.http.post(url, JSON.stringify(data))
+		var headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		data['email'] = email;
+		data['fname'] = name;
+		return this.http.post(url, JSON.stringify(data), { headers: headers })
 				.map(response => response.json())
-				.subscribe(response => console.log(response),
-							err => console.log(err));
+				.subscribe(response => console.log('response', response),
+							err => console.log('error', err));
+	}
+
+	getUser(secret){
+		var api = 'api/v0/user_details';
+		var url = this.endpoint + api;
+		return this.http.post(url, JSON.stringify({'s': secret}), { headers: this.header })
+				.map(response => response.json())
+				.subscribe(response => console.log('response', response),
+							err => console.log('error', err));
 	}
 
 }

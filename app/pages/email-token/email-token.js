@@ -1,4 +1,5 @@
 import {Page, NavController} from 'ionic-angular';
+import {dataService} from '../../services/dataService';
 
 /*
   Generated class for the EmailTokenPage page.
@@ -11,10 +12,23 @@ import {Page, NavController} from 'ionic-angular';
 })
 export class EmailTokenPage {
   static get parameters() {
-    return [[NavController]];
+    return [[NavController], [dataService]];
   }
 
-  constructor(nav) {
+  constructor(nav, ds) {
     this.nav = nav;
+    this.ds = ds;
+    this.token = '';
+    this.email = '';
   }
+
+  onLogin(){
+    var user = this.ds.getUser(this.token);
+    console.log('user', user);
+  }
+
+  onSendEmail(){
+    //send email link to token secret
+  }
+
 }
