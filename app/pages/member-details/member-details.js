@@ -1,6 +1,8 @@
 import {Page, NavController} from 'ionic-angular';
 import {DatePicker} from 'ionic-native';
 
+import {dataService} from '../../services/dataService';
+
 /*
   Generated class for the MemberDetailsPage page.
 
@@ -12,22 +14,41 @@ import {DatePicker} from 'ionic-native';
 })
 export class MemberDetailsPage {
   static get parameters() {
-    return [[NavController]];
+    return [[NavController], [dataService]];
   }
 
-  constructor(nav) {
+  constructor(nav, ds) {
     this.nav = nav;
-    this.fname = '';
-    this.mname = '';
-    this.sname = '';
-    this.onRoll = '';
-    this.email = '';
-    this.country = '';
-    this.postcode = '';
-    this.suburb = '';
-    this.street = '';
-    this.note = '';
-    this.dob = '';
+    this.ds = ds;
+
+    if(localStorage.secret != undefined){
+      this.ds.getUser(localStorage.secret)
+        .then((res) =>{
+          this.address = res.address;
+          this.contact_number = res.contact_number;
+          this.dob = res.dob;
+          this.dobDay = res.dobDay;
+          this.dobMonth = res.dobMonth;
+          this.dobYear = res.dobYear;
+          this.email = res.email;
+          this.name = res.name;
+          this.onAECRoll = res.onAECRoll;
+          this.member_comment = res.member_comment;
+          this.referred_by = res.referred_by;
+        });
+    } else {
+      this.address = '';
+      this.contact_number = '';
+      this.dob = '';
+      this.dobDay = '';
+      this.dobMonth = '';
+      this.dobYear = '';
+      this.email = '';
+      this.name = '';
+      this.onAECRoll = '';
+      this.member_comment = '';
+      this.referred_by = '';
+    }
   }
 
   selectDate(){

@@ -13,7 +13,7 @@ export class dataService {
 
 	constructor(http, util){
 		this.http = http;
-		this.endpoint = 'http://flux-api-dev.herokuapp.com/';
+		this.endpoint = 'https://api.voteflux.org/';//'http://flux-api-dev.herokuapp.com/';
 		this.header = new Headers();
 		this.header.append('Content-Type', 'application/json');
 		//this.header.append('Access-Control-Allow-Origin', '*');

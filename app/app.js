@@ -34,7 +34,12 @@ class MyApp {
     ];
 
     // make HelloIonicPage the root (or first) page
-    this.rootPage = HelloFluxPage;
+    if(localStorage.secret != undefined){
+      this.rootPage = MemberDetailsPage;
+    } else {
+      this.rootPage = HelloFluxPage;
+    }
+    
   }
 
   initializeApp() {

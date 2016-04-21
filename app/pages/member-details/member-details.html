@@ -17,18 +17,18 @@
 <ion-list>
 
 <ion-item>
-  <ion-label floating>First Name</ion-label>
-  <ion-input type="text" [(ngModel)] = "fname"></ion-input>
+  <ion-label floating>Name</ion-label>
+  <ion-input type="text" [(ngModel)] = "name"></ion-input>
 </ion-item>
 
 <ion-item>
-  <ion-label floating>Middle Names</ion-label>
-  <ion-input type="text" [(ngModel)] = "mname"></ion-input>
+  <ion-label floating>Address</ion-label>
+  <ion-input type="text" [(ngModel)] = "address"></ion-input>
 </ion-item>
 
 <ion-item>
-  <ion-label floating>Surname</ion-label>
-  <ion-input type="text" [(ngModel)] = "sname"></ion-input>
+  <ion-label floating>Contact Number</ion-label>
+  <ion-input type="text" [(ngModel)] = "contact_number"></ion-input>
 </ion-item>
 
 <ion-item (click)="selectDate()">
@@ -38,35 +38,26 @@
 
 <ion-item>
     <ion-label>Enrolled to Vote?</ion-label>
-    <ion-select [(ngModel)]="onRoll">
-      <ion-option value="yes">Yes</ion-option>
-      <ion-option value="no">No</ion-option>
+    <ion-select [(ngModel)]="onAECRoll">
+      <ion-option value="true">Yes</ion-option>
+      <ion-option value="false">No</ion-option>
+      </ion-select>
+ </ion-item>
+
+ <ion-item>
+    <ion-label>How Did You Hear About Flux?</ion-label>
+    <ion-select [(ngModel)]="referred_by">
+      <ion-option value="facebook">Facebook</ion-option>
+      <ion-option value="twitter">Twitter</ion-option>
+      <ion-option value="tv-press">On TV</ion-option>
+      <ion-option value="print-press">In a Newspaper</ion-option>
+      <ion-option value="word-of-mouth">Word of Mouth</ion-option>
       </ion-select>
  </ion-item>
 
 <ion-item>
-<ion-label floating>Country</ion-label>
-<ion-input type="text" [(ngModel)] = "country"></ion-input>
-</ion-item>
-
-<ion-item>
-<ion-label floating>Postcode</ion-label>
-<ion-input type="text" [(ngModel)] = "postcode"></ion-input>
-</ion-item>
-
-<ion-item>
-<ion-label floating>Suburb</ion-label>
-<ion-input type="text" [(ngModel)] = "suburb"></ion-input>
-</ion-item>
-
-<ion-item>
-<ion-label floating>Street</ion-label>
-<ion-input type="text" [(ngModel)] = "street"></ion-input>
-</ion-item>
-
-<ion-item>
 <ion-label floating>Comments</ion-label>
-<ion-input type="text" [(ngModel)] = "note"></ion-input>
+<ion-input type="text" [(ngModel)] = "member_comment"></ion-input>
 </ion-item>
 
 
