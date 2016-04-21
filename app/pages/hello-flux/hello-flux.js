@@ -19,32 +19,7 @@ export class HelloFluxPage {
   constructor(http, nav) {
     this.http = http;
     this.nav = nav;
-    // this.setLoading();
-    this.loadInfo();
     this.nav.push(LoginPage);
-
-    this.info = {
-      n_members: 1500,
-    }
-  }
-
-  setLoading(){
-    this.loading = Loading.create({
-      content: "Loading Flux Details...",
-      showBackdrop: true,
-      // dismissOnPageChange: true
-    });
-    this.nav.present(this.loading);
-  }
-
-  loadInfo(){
-    // this.http.get('https://api.voteflux.org/getinfo')
-    //   .map(res => res.json())
-    //   .subscribe(data => {
-    //     this.info = data;
-    //     this.loading.dismiss();
-    //     this.nav.push(LoginPage);
-    //   });
   }
 
   beginSignup(){

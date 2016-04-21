@@ -1,4 +1,6 @@
-import {Page, NavController} from 'ionic-angular';
+import {Page, NavController, Loading} from 'ionic-angular';
+import { Http } from 'angular2/http';
+import 'rxjs/add/operator/map';
 
 /*
   Generated class for the StatsPage page.
@@ -6,15 +8,43 @@ import {Page, NavController} from 'ionic-angular';
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+
 @Page({
   templateUrl: 'build/pages/stats/stats.html',
 })
 export class StatsPage {
   static get parameters() {
-    return [[NavController]];
+    return [[NavController], [Http]];
   }
 
-  constructor(nav) {
+  constructor(nav, http) {
     this.nav = nav;
+    this.http = http;
+
+    this.info = {
+      n_members: 1500,
+    }
+
+    this.loadInfo();
   }
+
+  setLoading(){
+    this.loading = Loading.create({
+      content: "Loading Flux Stats...",
+      showBackdrop: true,
+      // dismissOnPageChange: true
+    });
+    this.nav.present(this.loading);
+  }
+
+  loadInfo(){
+    this.setLoading();
+    this.http.get('https://api.voteflux.org/getinfo')
+      .map(res => res.json())
+      .subscribe(data => {
+        this.info = data;
+        this.loading.dismiss();
+      });
+  }
+
 }
