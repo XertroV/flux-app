@@ -21,13 +21,27 @@ export class SignupPage {
   onSubmit(){
   	//submit to API
   	if(this.email.length > 0 && this.fname.length > 0){
-  		var user = this.ds.registerEmail(this.email, this.fname);
-  		console.log('user', user);
-  		this.nav.push(MemberDetailsPage);
+  		this.ds.registerEmail(this.email, this.fname)
+  			.then((res) => {
+  				console.log(res);
+  				localStorage.secret = res.s;
+  				this.nav.push(MemberDetailsPage);
+  			})
+  			.catch((err) => console.log('error', err))
+  		
   	} else {
   		//show alert - enter details to proceed
+  		this.showAlert('Invalid Details', 'Enter a valid name and email address to proceed');
   	}
-  	
+  }
+
+  showAlert(title, subTitle){
+    let alert = Alert.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: ['OK']
+    });
+    this.nav.present(alert);
   }
 
 }
