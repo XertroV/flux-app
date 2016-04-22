@@ -2,8 +2,6 @@ import {Injectable} from 'angular2/core';
 import {Http, Headers} from 'angular2/http';
 import {Util} from '../aux';
 
-var PouchDB = require('pouchdb');
-
 @Injectable()
 export class dataService {
 

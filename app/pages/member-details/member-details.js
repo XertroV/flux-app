@@ -1,7 +1,9 @@
-import {Page, NavController} from 'ionic-angular';
+import {Page, NavController, Alert} from 'ionic-angular';
 import {DatePicker} from 'ionic-native';
 
 import {dataService} from '../../services/dataService';
+
+import {User} from '../../models/user';
 
 /*
   Generated class for the MemberDetailsPage page.
@@ -24,10 +26,9 @@ export class MemberDetailsPage {
     if(localStorage.secret != undefined){
       this.ds.getUser(localStorage.secret)
         .then((res) =>{
-          this.user = res;
           this.address = res.address;
           this.contact_number = res.contact_number;
-          this.dob = res.dob;
+          this.dob = res.dob.toString();
           this.dobDay = res.dobDay;
           this.dobMonth = res.dobMonth;
           this.dobYear = res.dobYear;
@@ -63,14 +64,42 @@ export class MemberDetailsPage {
   }
 
   onSubmit(){
-    //do stuff
-    //validate data
+    //todo - validate data
+    var user = new User();
+    user.address = this.address;
+    user.contact_number = this.contact_number;
+    user.dob = this.dob; //turn into an object
+    user.dobDay = this.dobDay;
+    user.dobMonth = this.dobMonth;
+    user.dobYear = this.dobYear;
+    user.email = this.email;
+    user.name = this.name;
+    user.onAECRoll = this.onAECRoll;
+    user.member_comment = this.member_comment;
+    user.referred_by = this.referred_by;
+    user.s = localStorage.secret;
+
     //submit to flux api
+    this.ds.updateUser(user)
+      .then((res) => {
+          console.log(res);
+          this.showAlert('Details Updated', 'Your details have been successfully updated');
+      })
+      .catch((err) => console.log(err))
   }
 
   onRevoke(){
     //give warning confirmation dialog
     //do revocation
+  }
+
+  showAlert(title, subTitle){
+    let alert = Alert.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: ['OK']
+    });
+    this.nav.present(alert);
   }
 
 
