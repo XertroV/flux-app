@@ -4,6 +4,7 @@ import {DatePicker} from 'ionic-native';
 import {dataService} from '../../services/dataService';
 
 import {User} from '../../models/user';
+import {Util} from '../../aux';
 
 /*
   Generated class for the MemberDetailsPage page.
@@ -16,27 +17,62 @@ import {User} from '../../models/user';
 })
 export class MemberDetailsPage {
   static get parameters() {
-    return [[NavController], [dataService]];
+    return [[NavController], [dataService], [Util]];
   }
 
-  constructor(nav, ds) {
+  constructor(nav, ds, util) {
     this.nav = nav;
     this.ds = ds;
+    this.util = util;
 
     if(localStorage.secret != undefined){
       this.ds.getUser(localStorage.secret)
         .then((res) =>{
-          this.address = res.address;
-          this.contact_number = res.contact_number;
-          this.dob = res.dob.toString();
-          this.dobDay = res.dobDay;
-          this.dobMonth = res.dobMonth;
-          this.dobYear = res.dobYear;
-          this.email = res.email;
-          this.name = res.name;
-          this.onAECRoll = res.onAECRoll;
-          this.member_comment = res.member_comment;
-          this.referred_by = res.referred_by;
+          //check what type of result we're getting
+          //if complete object, dob should be defined
+          if(res.dob != undefined){
+            console.log(res);
+            this.address = res.address;
+            this.contact_number = res.contact_number;
+            this.dob = res.dob.toString();
+            this.dobDay = res.dobDay;
+            this.dobMonth = res.dobMonth;
+            this.dobYear = res.dobYear;
+            this.email = res.email;
+            //split older style names
+            if(res.fname === undefined){
+              this.fname = this.util.getFirstName(res.name);
+            } else {
+              this.fname = res.fname;
+            }
+            if(res.mname === undefined){
+              this.mname = this.util.getMiddleNames(res.name);
+            } else {
+              this.mname = res.mname;
+            }
+            if(res.sname === undefined){
+              this.sname = this.util.getSurname(res.name);
+            } else {
+              this.sname = res.sname;
+            }
+            this.onAECRoll = res.onAECRoll;
+            this.member_comment = res.member_comment;
+            this.referred_by = res.referred_by;
+          } else {
+            this.address = '';
+            this.contact_number = '';
+            this.dob = '';
+            this.dobDay = '';
+            this.dobMonth = '';
+            this.dobYear = '';
+            this.email = res.email;
+            this.fname = res.fname;
+            this.mname = '';
+            this.sname = '';
+            this.onAECRoll = '';
+            this.member_comment = '';
+            this.referred_by = '';
+          }  
         });
     } else {
       this.address = '';
@@ -46,7 +82,9 @@ export class MemberDetailsPage {
       this.dobMonth = '';
       this.dobYear = '';
       this.email = '';
-      this.name = '';
+      this.fname = '';
+      this.mname = '';
+      this.sname = '';
       this.onAECRoll = '';
       this.member_comment = '';
       this.referred_by = '';
@@ -73,7 +111,9 @@ export class MemberDetailsPage {
     user.dobMonth = this.dobMonth;
     user.dobYear = this.dobYear;
     user.email = this.email;
-    user.name = this.name;
+    user.fname = this.fname;
+    user.mname = this.mname;
+    user.sname = this.sname;
     user.onAECRoll = this.onAECRoll;
     user.member_comment = this.member_comment;
     user.referred_by = this.referred_by;

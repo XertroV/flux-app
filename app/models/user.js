@@ -7,7 +7,9 @@ export class User{
       this.dobMonth = '';
       this.dobYear = '';
       this.email = '';
-      this.name = '';
+      this.fname = '';
+      this.mname = '';
+      this.sname = '';
       this.onAECRoll = '';
       this.member_comment = '';
       this.referred_by = '';

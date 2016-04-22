@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic-angular';
+import {Page, NavController, Alert} from 'ionic-angular';
 
 import {MemberDetailsPage} from '../member-details/member-details';
 import {dataService} from '../../services/dataService';
@@ -20,7 +20,7 @@ export class SignupPage {
 
   onSubmit(){
   	//submit to API
-  	if(this.email.length > 0 && this.fname.length > 0){
+  	if(this.email.length > 0){
   		this.ds.registerEmail(this.email, this.fname)
   			.then((res) => {
   				console.log(res);
