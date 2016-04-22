@@ -106,30 +106,34 @@ export class MemberDetailsPage {
   }
 
   onSubmit(){
-    //todo - validate data
-    var user = new User();
-    user.address = this.address;
-    user.contact_number = this.contact_number;
-    user.dob = this.dob; //turn into an object
-    user.dobDay = this.dobDay;
-    user.dobMonth = this.dobMonth;
-    user.dobYear = this.dobYear;
-    user.email = this.email;
-    user.fname = this.fname;
-    user.mname = this.mname;
-    user.sname = this.sname;
-    user.onAECRoll = this.onAECRoll;
-    user.member_comment = this.member_comment;
-    user.referred_by = this.referred_by;
-    user.s = localStorage.secret;
+    if(Network.connection !== 'none'){
+        //todo - validate data
+      var user = new User();
+      user.address = this.address;
+      user.contact_number = this.contact_number;
+      user.dob = this.dob; //turn into an object
+      user.dobDay = this.dobDay;
+      user.dobMonth = this.dobMonth;
+      user.dobYear = this.dobYear;
+      user.email = this.email;
+      user.fname = this.fname;
+      user.mname = this.mname;
+      user.sname = this.sname;
+      user.onAECRoll = this.onAECRoll;
+      user.member_comment = this.member_comment;
+      user.referred_by = this.referred_by;
+      user.s = localStorage.secret;
 
-    //submit to flux api
-    this.ds.updateUser(user)
-      .then((res) => {
-          console.log(res);
-          this.showAlert('Details Updated', 'Your details have been successfully updated');
-      })
-      .catch((err) => console.log(err))
+      //submit to flux api
+      this.ds.updateUser(user)
+        .then((res) => {
+            console.log(res);
+            this.showAlert('Details Updated', 'Your details have been successfully updated');
+        })
+        .catch((err) => console.log(err))
+    } else {
+      this.showAlert('No Network', 'You must be connected to the internet to proceed');
+    }
   }
 
   onRevoke(){
@@ -149,13 +153,17 @@ export class MemberDetailsPage {
         {
           text: 'Agree',
           handler: () => {
-          this.ds.deleteUser(localStorage.secret)
-            .then((res) => {
-                console.log('result', res);
-                localStorage.secret = undefined;
-                this.nav.push(HelloFluxPage);
-            })
-            .catch((err) => console.log('error', err));
+          if(Network.connection !== 'none'){
+            this.ds.deleteUser(localStorage.secret)
+              .then((res) => {
+                  console.log('result', res);
+                  localStorage.secret = undefined;
+                  this.nav.push(HelloFluxPage);
+              })
+              .catch((err) => console.log('error', err));
+            } else {
+              this.showAlert('No Network', 'You must be connected to the internet to proceed');
+            }
         }
       }
       ]

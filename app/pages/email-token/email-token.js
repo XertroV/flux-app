@@ -3,6 +3,7 @@ import {dataService} from '../../services/dataService';
 
 import {MemberDetailsPage} from '../member-details/member-details';
 
+import {Network} from 'ionic-native';
 /*
   Generated class for the EmailTokenPage page.
 
@@ -25,8 +26,9 @@ export class EmailTokenPage {
   }
 
   onLogin(){
-    //this.ds.getUser returns a promise
-    this.ds.getUser(this.token)
+    if(Network.connection !== 'none'){
+      //this.ds.getUser returns a promise
+      this.ds.getUser(this.token)
         .then((res) => {
           console.log('res', res);
           localStorage.secret = res.s;
@@ -36,10 +38,9 @@ export class EmailTokenPage {
           console.log('error', error);
           this.showAlert('Invalid Token', 'The token you entered is not valid');
         });
-  }
-
-  saveUser(){
-    this.ds.saveUser()
+    } else {
+      this.showAlert('No Network', 'You must be connected to the internet to proceed');
+    }
   }
 
   onSendEmail(){
