@@ -30,7 +30,8 @@
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
     "phonegap-plugin-barcodescanner",
-    "cordova-plugin-network-information"
+    "cordova-plugin-network-information",
+    "cordova-plugin-datepicker"
   ],
   "cordovaPlatforms": [
     "ios",

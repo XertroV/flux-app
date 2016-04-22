@@ -5,6 +5,8 @@ import {dataService} from '../../services/dataService';
 
 import {Network} from 'ionic-native';
 
+import {NgZone} from 'angular2/core';
+
 import {HelloFluxPage} from '../hello-flux/hello-flux';
 
 import {User} from '../../models/user';
@@ -21,13 +23,14 @@ import {Util} from '../../aux';
 })
 export class MemberDetailsPage {
   static get parameters() {
-    return [[NavController], [dataService], [Util]];
+    return [[NavController], [dataService], [Util], [NgZone]];
   }
 
-  constructor(nav, ds, util) {
+  constructor(nav, ds, util, zone) {
     this.nav = nav;
     this.ds = ds;
     this.util = util;
+    this.zone = zone;
 
     if(localStorage.secret !== undefined){
       this.ds.getUser(localStorage.secret)
@@ -130,6 +133,7 @@ export class MemberDetailsPage {
       this.ds.updateUser(user)
         .then((res) => {
             console.log(res);
+            this.refreshUser();
             this.showAlert('Details Updated', 'Your details have been successfully updated');
         })
         .catch((err) => console.log(err))
@@ -180,6 +184,31 @@ export class MemberDetailsPage {
       buttons: ['OK']
     });
     this.nav.present(alert);
+  }
+
+  //this is supposed to be a scope apply type func, doesn't seem to do what we want it to :(
+  refreshUser(){
+    this.ds.getUser(localStorage.secret)
+        .then((res) =>{
+          //ngzone update fields
+          console.log('zone', this.zone);
+          this.zone.run(() => {
+                console.log('ngzone res object', res);
+                this.address = res.address;
+                this.contact_number = res.contact_number;
+                this.dob = res.dob;
+                this.dobDay = res.dobDay;
+                this.dobMonth = res.dobMonth;
+                this.dobYear = res.dobYear;
+                this.email = res.email;
+                this.fname = res.fname;
+                this.mname = res.mname;
+                this.sname = res.sname;
+                this.onAECRoll = res.onAECRoll;
+                this.member_comment = res.member_comment;
+                this.referred_by = res.referred_by;   
+            });
+        });
   }
 
 
