@@ -3,6 +3,8 @@ import {DatePicker} from 'ionic-native';
 
 import {dataService} from '../../services/dataService';
 
+import {HelloFluxPage} from '../hello-flux/hello-flux';
+
 import {User} from '../../models/user';
 import {Util} from '../../aux';
 
@@ -59,6 +61,7 @@ export class MemberDetailsPage {
             this.member_comment = res.member_comment;
             this.referred_by = res.referred_by;
           } else {
+            //this should hit when the user comes from the initial signup pg
             this.address = '';
             this.contact_number = '';
             this.dob = '';
@@ -75,6 +78,7 @@ export class MemberDetailsPage {
           }  
         });
     } else {
+      //for all other occasions
       this.address = '';
       this.contact_number = '';
       this.dob = '';
@@ -131,6 +135,32 @@ export class MemberDetailsPage {
   onRevoke(){
     //give warning confirmation dialog
     //do revocation
+    //delete localStorage secret
+    let confirm = Alert.create({
+      title: 'Confirm Revocation',
+      message: 'Do you agree to revoke your membership?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+          this.ds.deleteUser(localStorage.secret)
+            .then((res) => {
+                console.log('result', res);
+                localStorage.secret = undefined;
+                this.nav.push(HelloFluxPage);
+            })
+            .catch((err) => console.log('error', err));
+        }
+      }
+      ]
+    });
+    this.nav.present(confirm);
   }
 
   showAlert(title, subTitle){

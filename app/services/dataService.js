@@ -71,7 +71,15 @@ export class dataService {
 		return promise;
 	}
 
-	saveUser(){
-		// create function, do nothing atm
+	deleteUser(secret){
+		var url = this.util.api('api/v0/delete_user');
+		var promise = new Promise((resolve, reject) => {
+			this.http.post(url, JSON.stringify({'s': secret}), { headers: this.header })
+				.map(response => response.json())
+				.subscribe(response => resolve(response),
+                        		err => reject(err));
+		});
+		return promise;
 	}
+
 }
