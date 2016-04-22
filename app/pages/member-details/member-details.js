@@ -3,6 +3,8 @@ import {DatePicker} from 'ionic-native';
 
 import {dataService} from '../../services/dataService';
 
+import {Network} from 'ionic-native';
+
 import {HelloFluxPage} from '../hello-flux/hello-flux';
 
 import {User} from '../../models/user';
@@ -27,12 +29,12 @@ export class MemberDetailsPage {
     this.ds = ds;
     this.util = util;
 
-    if(localStorage.secret != undefined){
+    if(localStorage.secret !== undefined){
       this.ds.getUser(localStorage.secret)
         .then((res) =>{
           //check what type of result we're getting
           //if complete object, dob should be defined
-          if(res.dob != undefined){
+          if(res.dob !== undefined){
             console.log(res);
             this.address = res.address;
             this.contact_number = res.contact_number;
