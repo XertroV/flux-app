@@ -2,8 +2,6 @@ import {Page, NavController, Loading} from 'ionic-angular';
 import { Http } from 'angular2/http';
 import 'rxjs/add/operator/map';
 
-import {util} from '../../aux/util';
-
 /*
   Generated class for the StatsPage page.
 

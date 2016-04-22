@@ -50,6 +50,17 @@ export class dataService {
 		return promise;
 	}
 
+	updateUser(user){
+		var url = this.util.api('api/v0/user_details');
+		var promise = new Promise((resolve, reject) => {
+			this.http.post(url, JSON.stringify(user), {headers: this.header})
+				.map(response => response.json())
+				.subscribe(response => resolve(response),
+							err => reject(err));
+		});
+		return promise;
+	}
+
 	getUser(secret){
 		console.log("getUser with secret " + secret);
 		var url = this.util.api('api/v0/user_details');

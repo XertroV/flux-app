@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic-angular';
+import {Page, NavController, Alert} from 'ionic-angular';
 import {dataService} from '../../services/dataService';
 
 import {MemberDetailsPage} from '../member-details/member-details';
@@ -32,7 +32,10 @@ export class EmailTokenPage {
           localStorage.secret = res.s;
           this.nav.push(MemberDetailsPage);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log('error', error);
+          this.showAlert('Invalid Token', 'The token you entered is not valid');
+        });
   }
 
   saveUser(){
@@ -41,6 +44,16 @@ export class EmailTokenPage {
 
   onSendEmail(){
     //send email link to token secret
+  }
+
+  showAlert(title, subTitle){
+    let alert = Alert.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: ['OK']
+    });
+    this.token = '';
+    this.nav.present(alert);
   }
 
 }
