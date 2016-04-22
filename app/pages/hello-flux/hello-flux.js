@@ -1,7 +1,7 @@
 import { Http } from 'angular2/http';
 import 'rxjs/add/operator/map';
 
-import { Page, Loading, NavController } from 'ionic-angular';
+import { Page, Loading, NavController, Alert } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
@@ -34,5 +34,14 @@ export class HelloFluxPage {
     console.log("beginLogin()");
     this.nav.push(LoginPage);
     console.log("pushedLoginPage");
+  }
+
+   showAlert(title, subTitle){
+    let alert = Alert.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: ['OK']
+    });
+    this.nav.present(alert);
   }
 }

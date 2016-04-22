@@ -1,5 +1,7 @@
 import {Page, NavController, Alert} from 'ionic-angular';
 
+import {Network} from 'ionic-native';
+
 import {MemberDetailsPage} from '../member-details/member-details';
 import {dataService} from '../../services/dataService';
 
@@ -20,7 +22,8 @@ export class SignupPage {
 
   onSubmit(){
   	//submit to API
-  	if(this.email.length > 0){
+  	if(Network.connection !== 'none'){
+  		if(this.email.length > 0){
   		this.ds.registerEmail(this.email, this.fname)
   			.then((res) => {
   				console.log(res);
@@ -29,10 +32,14 @@ export class SignupPage {
   			})
   			.catch((err) => console.log('error', err))
   		
-  	} else {
-  		//show alert - enter details to proceed
-  		this.showAlert('Invalid Details', 'Enter a valid name and email address to proceed');
-  	}
+	  	} else {
+	  		//show alert - enter details to proceed
+	  		this.showAlert('Invalid Details', 'Enter a valid name and email address to proceed');
+	  	}
+	  } else {
+	  	this.showAlert('No Network', 'You must be connected to the internet to proceed');
+	  }
+  	
   }
 
   showAlert(title, subTitle){
