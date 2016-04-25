@@ -35,6 +35,22 @@ export class dataService {
 		return promise;
 	}
 
+	emailToken(email){
+		var url = this.util.api('api/v0/email_secret_token');
+		var data = {};
+		var headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		data['email'] = email;
+		var promise = new Promise((resolve, reject) => {
+			this.http.post(url, JSON.stringify(data), { headers: headers })
+				.map(response => response.json())
+				.subscribe(response => resolve(response),
+                        		err => reject(err));
+		});
+		return promise;
+	}
+
+
 
 	//takes user object, returns promise
 	registerUser(user){

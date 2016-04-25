@@ -44,7 +44,22 @@ export class EmailTokenPage {
   }
 
   onSendEmail(){
-    //send email link to token secret
+    if(Network.connection !== 'none'){
+      //send email link to token secret
+      this.ds.emailToken(this.email)
+        .then((res) => {
+          if(res.sent_email){
+            this.showAlert('Email Sent', 'Please check your email for the token...');
+          } else {
+            //email not sent
+            this.showAlert('Error', res.reason);
+          }
+        })
+        //or no response
+        .catch((err) => console.log(err));
+      } else {
+        this.showAlert('No Network', 'You must be connected to the internet to proceed');
+      }
   }
 
   showAlert(title, subTitle){
