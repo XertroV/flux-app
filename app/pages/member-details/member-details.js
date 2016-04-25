@@ -38,7 +38,8 @@ export class MemberDetailsPage {
           //check what type of result we're getting
           //if complete object, dob should be defined
           if(res.dob !== undefined){
-            console.log(res);
+            console.log('constructor res ', res);
+            console.log('constructor res.sname ', res.sname);
             this.address = res.address;
             this.contact_number = res.contact_number;
             this.dob = res.dob.toString();
@@ -46,25 +47,26 @@ export class MemberDetailsPage {
             this.dobMonth = res.dobMonth;
             this.dobYear = res.dobYear;
             this.email = res.email;
+            this.onAECRoll = res.onAECRoll;
+            this.member_comment = res.member_comment;
+            this.referred_by = res.referred_by;
+            console.log('constructors this ', this);
             //split older style names
-            if(res.fname === undefined){
+            if(res.fname === undefined && res.name !== undefined){
               this.fname = this.util.getFirstName(res.name);
             } else {
               this.fname = res.fname;
             }
-            if(res.mname === undefined){
+            if(res.mname === undefined && res.name !== undefined){
               this.mname = this.util.getMiddleNames(res.name);
             } else {
               this.mname = res.mname;
             }
-            if(res.sname === undefined){
+            if(res.sname === undefined && res.name !== undefined){
               this.sname = this.util.getSurname(res.name);
             } else {
               this.sname = res.sname;
             }
-            this.onAECRoll = res.onAECRoll;
-            this.member_comment = res.member_comment;
-            this.referred_by = res.referred_by;
           } else {
             //this should hit when the user comes from the initial signup pg
             this.address = '';
@@ -98,6 +100,7 @@ export class MemberDetailsPage {
       this.member_comment = '';
       this.referred_by = '';
     }
+    
   }
 
   selectDate(){
@@ -113,6 +116,7 @@ export class MemberDetailsPage {
   onSubmit(){
     if(Network.connection !== 'none'){
         //todo - validate data
+      console.log('sname onSubmit: ', this.sname);
       var user = new User();
       user.address = this.address;
       user.contact_number = this.contact_number;
@@ -132,11 +136,11 @@ export class MemberDetailsPage {
       //submit to flux api
       this.ds.updateUser(user)
         .then((res) => {
-            console.log(res);
+            console.log('updateUser res: ', res);
             this.refreshUser();
             this.showAlert('Details Updated', 'Your details have been successfully updated');
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log('updateUser err: ', err))
     } else {
       this.showAlert('No Network', 'You must be connected to the internet to proceed');
     }
