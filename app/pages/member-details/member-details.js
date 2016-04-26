@@ -57,10 +57,10 @@ export class MemberDetailsPage {
             } else {
               this.fname = res.fname;
             }
-            if(res.mname === undefined && res.name !== undefined){
-              this.mname = this.util.getMiddleNames(res.name);
+            if(res.mnames === undefined && res.name !== undefined){
+              this.mnames = this.util.getMiddleNames(res.name);
             } else {
-              this.mname = res.mname;
+              this.mnames = res.mnames;
             }
             if(res.sname === undefined && res.name !== undefined){
               this.sname = this.util.getSurname(res.name);
@@ -77,7 +77,7 @@ export class MemberDetailsPage {
             this.dobYear = '';
             this.email = res.email;
             this.fname = res.fname;
-            this.mname = '';
+            this.mnames = '';
             this.sname = '';
             this.onAECRoll = '';
             this.member_comment = '';
@@ -94,7 +94,7 @@ export class MemberDetailsPage {
       this.dobYear = '';
       this.email = '';
       this.fname = '';
-      this.mname = '';
+      this.mnames = '';
       this.sname = '';
       this.onAECRoll = '';
       this.member_comment = '';
@@ -126,7 +126,7 @@ export class MemberDetailsPage {
       user.dobYear = this.dobYear;
       user.email = this.email;
       user.fname = this.fname;
-      user.mname = this.mname;
+      user.mnames = this.mnames;
       user.sname = this.sname;
       user.onAECRoll = this.onAECRoll;
       user.member_comment = this.member_comment;
@@ -206,7 +206,7 @@ export class MemberDetailsPage {
                 this.dobYear = res.dobYear;
                 this.email = res.email;
                 this.fname = res.fname;
-                this.mname = res.mname;
+                this.mnames = res.mnames;
                 this.sname = res.sname;
                 this.onAECRoll = res.onAECRoll;
                 this.member_comment = res.member_comment;
